@@ -1,8 +1,11 @@
 .app {
+    background-color: #f6f7fb;
+    padding-top: 2rem;
     &-flex {
         border: 1px solid blue;
         width: 83%;
         margin: 0 auto;
+        margin-bottom: 2rem;
         display: flex;
         justify-content: space-between;
     }

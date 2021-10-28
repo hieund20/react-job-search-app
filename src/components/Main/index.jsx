@@ -37,31 +37,73 @@ function Main(props) {
                     <div
                         className="main-job"
                         onClick={() => handleJobClick(job)}>
-                        <div className="main-job-logo">
+                        <div
+                            className="main-job-logo">
                             {
                                 job.company.image &&
                                 <img src={job.company.image} alt="" />
                             }
                         </div>
-                        <div className="main-job-middle">
-                            <span>{job.company.name}</span>
-                            <span>{job.name}</span>
-                            <button>{job.model_type}</button>
+                        <div className="main-job-infor">
+                            <div className="main-job-infor-top">
+                                <span>{job.company.name}</span>
+                                <span>{job.name}</span>
+                            </div>
+                            <div className="main-job-infor-bottom">
+                                <button>Full time</button>
+                                <div>
+                                    <div>
+                                        <span className="material-icons">
+                                            public
+                                        </span>
+                                        <span>{job.locations[0].name}</span>
+                                    </div>
+                                    <div>
+                                        <span className="material-icons">
+                                            schedule
+                                        </span>
+                                        <span>{moment(job.publication_date).fromNow()}</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <span>{moment(job.publication_date).fromNow()}</span>
-                        <span>{job.locations[0].name}</span>
                     </div>
                 ))
             }
             {
                 job && job.company &&
                 <div className="main-description">
-                    <span>{job.name}</span>
-                    <span>{moment(job.publication_date).fromNow()}</span>
-                    <span>company: {job.company.name}</span>
-                    <img src={job.company.image} alt="" />
-                    <span>{job.locations[0].name}</span>
-                    {job.contents}
+                    <div className="main-description-company">
+                        <div>
+                            <span>{job.name}</span>
+                        </div>
+                        <div>
+                            <button>Full time</button>
+                        </div>
+                    </div>
+                    <div className="main-description-time">
+                        <span className="material-icons">
+                            schedule
+                        </span>
+                        <span>{moment(job.publication_date).fromNow()}</span>
+                    </div>
+                    <div className="main-description-block">
+                        <div>
+                            <img src={job.company.image} alt="" />
+                        </div>
+                        <div>
+                            <span>{job.company.name}</span>
+                            <div>
+                                <span className="material-icons">
+                                    public
+                                </span>
+                                <span>{job.locations[0].name}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="main-description-content">
+                        <div dangerouslySetInnerHTML={{ __html: job.contents }}></div>
+                    </div>
                 </div>
             }
         </div>

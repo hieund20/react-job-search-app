@@ -7,20 +7,22 @@ import './style.scss';
 
 SideBar.propTypes = {
     job: PropTypes.object,
-    filters: PropTypes.object,
+    onChooseCategory: PropTypes.func,
+    onChooseLevel: PropTypes.func,
     onSubmit: PropTypes.func,
     onBack: PropTypes.func
 };
 
 SideBar.defaultProps = {
     job: null,
-    filters: null,
+    onChooseCategory: null,
+    onChooseLevel: null,
     onSubmit: null,
     onBack: null
 };
 
 function SideBar(props) {
-    const { job, filters, onSubmit, onBack } = props;
+    const { job, onChooseCategory, onChooseLevel, onSubmit, onBack } = props;
     const [searchValue, setSearchValue] = useState('');
 
     const handleSearchValueChange = (e) => {
@@ -28,23 +30,21 @@ function SideBar(props) {
         setSearchValue(value);
     }
 
-    const handleSubmitSearchValue = (e) => {
+    const handleSubmitLocation = (e) => {
         if (!onSubmit) return;
         if (e.key === 'Enter') {
-            console.log("Hello");
-            filters['location'] = searchValue;
-            onSubmit(filters);
+            onSubmit(searchValue);
         }
     }
 
     const handleOnChooseLevel = (level) => {
-        if (!filters) return;
-        filters['level'] = level.target.value;
+        if (!onChooseLevel) return;
+        onChooseLevel(level.target.value)
     }
 
     const handleOnChooseCategory = (cate) => {
-        if (!filters) return;
-        filters['category'] = cate.target.value;
+        if (!onChooseCategory) return;
+        onChooseCategory(cate.target.value)
     }
 
     const handleBackToMain = () => {
@@ -57,22 +57,27 @@ function SideBar(props) {
             {
                 _.isEmpty(job) &&
                 <div className="sidebar-container">
-                    <div className="sidebar-container-top">
+                    <div className="sidebar-container-checkbox">
                         <input type="checkbox" />
                         <span>Full time</span>
                     </div>
-                    <div className="sidebar-container-bottom">
+                    <div className="sidebar-container-location">
                         <span>LOCATION</span>
-                        <input
-                            onKeyPress={(e) => handleSubmitSearchValue(e)}
-                            type="text"
-                            placeholder="City, state, zip code or country"
-                            value={searchValue}
-                            onChange={handleSearchValueChange} />
+                        <div>
+                            <span className="material-icons">
+                                public
+                            </span>
+                            <input
+                                onKeyPress={(e) => handleSubmitLocation(e)}
+                                type="text"
+                                placeholder="City, state, zip code or country"
+                                value={searchValue}
+                                onChange={handleSearchValueChange} />
+                        </div>
                     </div>
-                    <div className="filter-box">
-                        <div className="filter-box-category">
-                            <label>Choose a category:</label>
+                    <div className="sidebar-container-filter">
+                        <div>
+                            <label>Category</label>
                             <select onChange={handleOnChooseCategory}>
                                 {
                                     categoryData().map((category) => (
@@ -83,8 +88,8 @@ function SideBar(props) {
                                 }
                             </select>
                         </div>
-                        <div className="filter-box-level">
-                            <label>Choose a level:</label>
+                        <div>
+                            <label>Level</label>
                             <select onChange={handleOnChooseLevel}>
                                 {
                                     levelData().map((level) => (
@@ -103,6 +108,9 @@ function SideBar(props) {
                 !_.isEmpty(job) &&
                 <div className="sidebar-container">
                     <div className="sidebar-container-top">
+                        <span class="material-icons">
+                            trending_flat
+                        </span>
                         <span onClick={() => handleBackToMain()}>
                             Back to search
                         </span>

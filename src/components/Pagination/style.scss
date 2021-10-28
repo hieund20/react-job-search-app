@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+.pagination {
+    border: 1px solid blue;
+    width: 83%;
+    margin: 0 auto;
+    margin-bottom: 12.188rem;
+    position: relative;
+
+    display: flex;
+    justify-content: space-between;
+    &-container {
+        border: 1px solid blue;
+        display: flex;
+        justify-content: center;
+        color: #b7bcce;
+        & button {
+            width: 2.25rem;
+            height: 2.25rem;
+            border: 1px solid #b7bcce;
+            box-sizing: border-box;
+            border-radius: 4px;
+            background-color: #f6f7fb;
+            color: #b7bcce;
+            text-align: center;
+            cursor: pointer;
+
+            &:hover {
+                border: 1px solid #1e86ff;
+                box-sizing: border-box;
+                border-radius: 4px;
+                color: #1e86ff;
+            }
+            &:focus {
+                background: #1e86ff;
+                border: 1px solid #1e86ff;
+                box-sizing: border-box;
+                border-radius: 4px;
+                color: #ffffff;
+            }
+        }
+        & > button:nth-child(1) {
+            margin-right: 0.75rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        & > button:nth-child(2) {
+            margin-right: 0.75rem;
+        }
+        & > button:last-child {
+            margin-left: 0.75rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        &-more {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 0.75rem;
+            margin-left: 0.75rem;
+        }
+        .to-inline {
+            & > button:first-child {
+                margin-right: 0.75rem;
+            }
+        }
+    }
+
+    .to-inline {
+        display: inline-block;
+    }
+}

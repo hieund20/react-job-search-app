@@ -7,7 +7,6 @@ Pagination.propTypes = {
     page: PropTypes.number,
     page_count: PropTypes.number,
     job: PropTypes.object,
-    filters: PropTypes.object,
     onPageChange: PropTypes.func
 };
 
@@ -15,23 +14,24 @@ Pagination.defaultProps = {
     page: null,
     page_count: null,
     job: null,
-    filters: null,
     onPageChange: null
 };
 
 function Pagination(props) {
-    const { page, page_count, job, filters, onPageChange } = props;
-    console.log('page', page);
+    const { page, page_count, job, onPageChange } = props;
+
+    console.log('current page', page);
     console.log('page_count', page_count && page_count);
 
     const handlePageChange = (newPage) => {
         if (!onPageChange) return;
-        filters.page = newPage;
-        onPageChange(filters);
+        // console.log('new page', newPage);
+        onPageChange(newPage);
     }
 
     return (
         <div className="pagination">
+            <div></div>
             {
                 _.isEmpty(job) &&
                 <div className="pagination-container">
@@ -40,20 +40,40 @@ function Pagination(props) {
                         disabled={page === 1}
                         onClick={() => handlePageChange(page - 1)}>
                         <span className="material-icons">
-                            arrow_back_ios
+                            chevron_left
                         </span>
                     </button>
                     <button className="pagination-container-page">
                         1
                     </button>
-                    <button
-                        className="pagination-container-page"
-                        onClick={handlePageChange(2)}>
-                        2
-                    </button>
-                    <span class="material-icons">
-                        more_horiz
-                    </span>
+                    {
+                        page_count && page_count === 3 &&
+                        <button
+                            className="pagination-container-page"
+                            onClick={() => handlePageChange(2)}>
+                            2
+                        </button>
+                    }
+                    {
+                        page_count && page_count > 3 &&
+                        <div className="to-inline">
+                            <button
+                                className="pagination-container-page"
+                                onClick={() => handlePageChange(2)}>
+                                2
+                            </button>
+                            <button
+                                className="pagination-container-page"
+                                onClick={() => handlePageChange(3)}>
+                                3
+                            </button>
+                        </div>
+                    }
+                    <div className="pagination-container-more">
+                        <span class="material-icons">
+                            more_horiz
+                        </span>
+                    </div>
                     <button className="pagination-container-page">
                         {page_count}
                     </button>
@@ -62,7 +82,7 @@ function Pagination(props) {
                         disabled={page === page_count}
                         onClick={() => handlePageChange(page + 1)}>
                         <span className="material-icons">
-                            arrow_forward_ios
+                            chevron_right
                         </span>
                     </button>
                 </div>

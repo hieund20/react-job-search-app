@@ -12,16 +12,17 @@ function App() {
   const [jobList, setJobList] = useState({});
   const [job, setJob] = useState({});
   const [filters, setFilters] = useState({
-    category: 'IT',
-    location: 'New York, NY',
+    // category: 'IT',
+    // location: 'New York, NY',
     page: 1
   });
-  const [paramsString, setParamsString] = useState(queryString.stringify(filters));
+  // const [paramsString, setParamsString] = useState(queryString.stringify(filters));
 
   console.log('dem1');
 
   //first loading data
   useEffect(() => {
+    const paramsString = queryString.stringify(filters);
     getJobList(paramsString)
       .then((res) => {
         res.data.results && res.data.results.map((job) => (
@@ -40,38 +41,92 @@ function App() {
       .catch((err) => {
         console.log(err);
       })
-  }, [paramsString])
+  }, [filters])
 
   console.log('update job list 2', jobList.results);
 
-  const handleFiltersJobs = (searchValue) => {
-    if (!searchValue) return;
-    // console.log('value search', searchValue);
-    const paramsString = queryString.stringify(searchValue);
-    setParamsString(paramsString);
-  }
+  // const handleFiltersJobs = (searchValue) => {
+  //   if (!searchValue) return;
+  //   const paramsString = queryString.stringify(searchValue);
+  //   setParamsString(paramsString);
+  //   console.log('param string', paramsString)
+  // }
 
   const handleChosenJob = (job) => {
     setJob(job);
   }
 
   const handleBackToMain = () => {
-    // console.log('Back to main');
     setJob(null);
   }
+
+  const handlePageChange = (newPage) => {
+    console.log('test1');
+    setFilters({
+      ...filters,
+      page: newPage
+    })
+  }
+
+  const handleCompanySearch = (company) => {
+    if (company === '') {
+      setFilters((prevData) => {
+        const newData = { ...prevData }
+        delete newData['company']
+        return newData;
+      })
+    }
+    else {
+      setFilters({
+        ...filters,
+        company: company
+      })
+    }
+  }
+
+  const handleChooseCategory = (category) => {
+    setFilters({
+      ...filters,
+      category: category
+    })
+  }
+
+  const handleChooseLevel = (level) => {
+    setFilters({
+      ...filters,
+      level: level
+    })
+  }
+
+  const handleSubmitLocation = (location) => {
+    if (location === '') {
+      setFilters((prevData) => {
+        const newData = { ...prevData }
+        delete newData['location']
+        return newData;
+      })
+    }
+    else {
+      setFilters({
+        ...filters,
+        location: location
+      })
+    }
+  }
+
 
   return (
     <div className="app">
       <Header />
       <Filters
-        onSubmit={handleFiltersJobs}
-        filters={filters}
+        onSubmit={handleCompanySearch}
       />
       <div className="app-flex">
         <SideBar
           job={job}
-          filters={filters}
-          onSubmit={handleFiltersJobs}
+          onChooseCategory={handleChooseCategory}
+          onChooseLevel={handleChooseLevel}
+          onSubmit={handleSubmitLocation}
           onBack={handleBackToMain}
         />
         <Main
@@ -84,8 +139,7 @@ function App() {
         page={jobList.page}
         page_count={jobList.page_count}
         job={job}
-        filters={filters}
-        onPageChange={handleFiltersJobs}
+        onPageChange={handlePageChange}
       />
     </div>
   );
