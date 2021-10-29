@@ -7,18 +7,15 @@ import Header from './components/Header';
 import Main from './components/Main';
 import Pagination from './components/Pagination';
 import SideBar from './components/SideBar';
+import Loading from './components/Loading';
 
 function App() {
   const [jobList, setJobList] = useState({});
   const [job, setJob] = useState({});
   const [filters, setFilters] = useState({
-    // category: 'IT',
-    // location: 'New York, NY',
     page: 1
   });
-  // const [paramsString, setParamsString] = useState(queryString.stringify(filters));
-
-  console.log('dem1');
+  const [loading, setLoading] = useState(true);
 
   //first loading data
   useEffect(() => {
@@ -30,27 +27,20 @@ function App() {
             .then((res) => {
               job.company = {
                 ...job.company,
-                image: res.data.refs && res.data.refs.logo_image
+                image: res.data.refs && res.data.refs.logo_image,
+                landing_page: res.data.refs && res.data.refs.landing_page
               }
             })
         ))
         setTimeout(() => {
           setJobList(res.data);
-        }, 2000)
+          setLoading(false);
+        }, 3000)
       })
       .catch((err) => {
         console.log(err);
       })
   }, [filters])
-
-  console.log('update job list 2', jobList.results);
-
-  // const handleFiltersJobs = (searchValue) => {
-  //   if (!searchValue) return;
-  //   const paramsString = queryString.stringify(searchValue);
-  //   setParamsString(paramsString);
-  //   console.log('param string', paramsString)
-  // }
 
   const handleChosenJob = (job) => {
     setJob(job);
@@ -61,7 +51,7 @@ function App() {
   }
 
   const handlePageChange = (newPage) => {
-    console.log('test1');
+    setLoading(true);
     setFilters({
       ...filters,
       page: newPage
@@ -69,6 +59,7 @@ function App() {
   }
 
   const handleCompanySearch = (company) => {
+    setLoading(true);
     if (company === '') {
       setFilters((prevData) => {
         const newData = { ...prevData }
@@ -79,26 +70,32 @@ function App() {
     else {
       setFilters({
         ...filters,
-        company: company
+        company: company,
+        page: 1
       })
     }
   }
 
   const handleChooseCategory = (category) => {
+    setLoading(true);
     setFilters({
       ...filters,
-      category: category
+      category: category,
+      page: 1
     })
   }
 
   const handleChooseLevel = (level) => {
+    setLoading(true);
     setFilters({
       ...filters,
-      level: level
+      level: level,
+      page: 1
     })
   }
 
   const handleSubmitLocation = (location) => {
+    setLoading(true);
     if (location === '') {
       setFilters((prevData) => {
         const newData = { ...prevData }
@@ -109,7 +106,8 @@ function App() {
     else {
       setFilters({
         ...filters,
-        location: location
+        location: location,
+        page: 1
       })
     }
   }
@@ -140,6 +138,9 @@ function App() {
         page_count={jobList.page_count}
         job={job}
         onPageChange={handlePageChange}
+      />
+      <Loading
+        loading={loading}
       />
     </div>
   );

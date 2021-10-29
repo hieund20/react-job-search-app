@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 .main {
-    width: 66%;
+    width: 65%;
     // border: 1px solid blue;
     &-job {
         height: 7.125rem;
@@ -113,10 +113,10 @@
     &-description {
         &-company {
             display: flex;
-            justify-content: space-between;
             & > div:nth-child(1) {
                 // border: 1px solid blue;
-                width: 80%;
+                width: 100%;
+                display: flex;
                 & > span:first-child {
                     display: block;
                     font-family: Roboto, sans-serif;
@@ -126,10 +126,6 @@
                     line-height: 28px;
                     color: #334680;
                 }
-            }
-            & > div:nth-child(2) {
-                // border: 1px solid blue;
-                width: 15%;
                 & > button {
                     width: 3.938rem;
                     height: 1.625rem;
@@ -137,6 +133,7 @@
                     box-sizing: border-box;
                     border-radius: 4px;
                     cursor: default;
+                    margin-left: 17px;
 
                     background-color: #f6f7fb;
                     font-family: Roboto, sans-serif;
@@ -219,13 +216,66 @@
             margin-bottom: 1rem;
         }
         &-content {
-            border: 1px solid blue;
+            // border: 1px solid blue;
             font-family: Roboto, sans-serif;
             font-style: normal;
             font-weight: normal;
             font-size: 16px;
             line-height: 150%;
             color: #334680;
+        }
+    }
+}
+
+@media screen and (max-width: 860px) {
+    .main {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .main {
+        width: 100%;
+        &-job {
+            height: 10rem;
+            align-items: unset;
+            padding-top: 0.75rem;
+            padding-bottom: 0.875rem;
+            &-infor {
+                width: 70%;
+                &-top {
+                    & > span:nth-child(1) {
+                        font-size: 11px;
+                    }
+                    & > span:nth-child(2) {
+                        font-size: 14px;
+                    }
+                }
+                &-bottom {
+                    display: block;
+                    & > button {
+                        margin-bottom: 0.5rem;
+                    }
+                    & > div {
+                        & > div:nth-child(1) {
+                            // border: 1px solid black;
+                            margin-right: 0.5rem;
+                        }
+                    }
+                }
+            }
+        }
+        &-description {
+            &-company {
+                & > div:nth-child(1) {
+                    width: 100%;
+                    display: block;
+                    & > button {
+                        margin-top: 4px;
+                        margin-left: 0px;
+                    }
+                }
+            }
         }
     }
 }

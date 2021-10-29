@@ -73,6 +73,9 @@ function SideBar(props) {
                                 placeholder="City, state, zip code or country"
                                 value={searchValue}
                                 onChange={handleSearchValueChange} />
+                            <span className="toolTipText">
+                                After typing in the location, press Enter to search
+                            </span>
                         </div>
                     </div>
                     <div className="sidebar-container-filter">
@@ -117,9 +120,14 @@ function SideBar(props) {
                     </div>
                     <div className="sidebar-container-bottom">
                         <span>HOW TO APPLY</span>
-                        <span>Please email a copy of your resume
-                            and online portfolio to wes@kasisto.com
-                            & CC eric@kasisto.com</span>
+                        <span>
+                            Please email a copy of your resume and online portfolio to
+                        </span>
+                        <a
+                            href={job.company.landing_page}
+                            target="_blank" rel="noreferrer">
+                            {job.company.landing_page}
+                        </a>
                     </div>
                 </div>
             }

@@ -43,7 +43,9 @@ function Pagination(props) {
                             chevron_left
                         </span>
                     </button>
-                    <button className="pagination-container-page">
+                    <button
+                        className="pagination-container-page"
+                        onClick={() => handlePageChange(1)}>
                         1
                     </button>
                     {
@@ -74,9 +76,21 @@ function Pagination(props) {
                             more_horiz
                         </span>
                     </div>
-                    <button className="pagination-container-page">
-                        {page_count}
-                    </button>
+                    {
+                        page_count > 999 &&
+                        <button className="pagination-container-page large">
+                            {page_count}
+                        </button>
+                    }
+                    {
+                        page_count <= 999 &&
+                        <button
+                            className="pagination-container-page"
+                            onClick={() => handlePageChange(page_count)}
+                        >
+                            {page_count}
+                        </button>
+                    }
                     <button
                         className="pagination-container-next"
                         disabled={page === page_count}

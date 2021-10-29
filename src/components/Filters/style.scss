@@ -17,7 +17,7 @@
         color: #b9bdcf;
         position: absolute;
         top: 50%;
-        left: 16.4%;
+        left: 18.2%;
 
         font-size: large;
         z-index: 1;
@@ -72,11 +72,27 @@
         position: absolute;
         top: 0;
         bottom: 0;
-        left: 55%;
+        left: 51.3%;
         right: 0;
         margin: auto;
         &:hover {
             background: #0571ec;
+        }
+    }
+}
+
+@media screen and (max-width: 860px) {
+    .search {
+        width: 90%;
+        & input {
+            width: 90%;
+        }
+        & span {
+            left: 9%;
+        }
+        & button {
+            width: 20%;
+            left: 68%;
         }
     }
 }

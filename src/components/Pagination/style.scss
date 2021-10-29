@@ -1,16 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 .pagination {
-    border: 1px solid blue;
+    // border: 1px solid blue;
     width: 83%;
     margin: 0 auto;
-    margin-bottom: 12.188rem;
+    // margin-bottom: 12.188rem;
     position: relative;
 
     display: flex;
     justify-content: space-between;
     &-container {
-        border: 1px solid blue;
+        // border: 1px solid blue;
         display: flex;
         justify-content: center;
         color: #b7bcce;
@@ -61,8 +61,14 @@
             margin-right: 0.75rem;
             margin-left: 0.75rem;
         }
+        &-page {
+            &.large {
+                width: 3rem;
+            }
+        }
         .to-inline {
             & > button:first-child {
+                text-align: center;
                 margin-right: 0.75rem;
             }
         }
@@ -70,5 +76,12 @@
 
     .to-inline {
         display: inline-block;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .pagination {
+        width: 90%;
+        display: block;
     }
 }

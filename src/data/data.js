@@ -15,7 +15,7 @@ export const categoryData = () => {
 
 export const levelData = () => {
     const level = [
-        'Entry Level', 'Mid Level', 'Senior Level', 'management', 'Internship'
+        'Entry Level', 'Mid Level', 'Senior Level', 'Management', 'Internship'
     ]
     return level;
 }

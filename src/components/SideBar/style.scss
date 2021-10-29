@@ -42,10 +42,30 @@
                 display: flex;
                 align-items: center;
                 position: relative;
-                & > span {
+                & > span:first-child {
                     position: absolute;
                     font-size: x-large;
                     padding-left: 0.75rem;
+                }
+                .toolTipText {
+                    visibility: hidden;
+                    width: 70%;
+                    background-color: #b9bdcf;
+                    color: #fff;
+                    text-align: center;
+                    border-radius: 6px;
+                    padding: 5px 0;
+
+                    font-family: Poppins, sans-serif;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 12px;
+                    line-height: 14px;
+                    /* Position the tooltip */
+                    position: absolute;
+                    left: 30%;
+                    bottom: 100%;
+                    z-index: 1;
                 }
                 & > input {
                     width: 100%;
@@ -62,11 +82,16 @@
                     font-size: 12px;
                     line-height: 14px;
                     color: #b9bdcf;
+
                     &:focus {
                         outline: none;
+                        color: black;
                     }
                     &:hover {
                         box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+                        & + .toolTipText {
+                            visibility: visible;
+                        }
                     }
                 }
                 margin-bottom: 1.5rem;
@@ -178,6 +203,31 @@
                 color: #b9bdcf;
                 margin-bottom: 1rem;
             }
+            & > span:nth-child(2) {
+                display: inline-block;
+                font-family: Poppins, sans-serif;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 21px;
+                color: #334680;
+            }
+            & > a {
+                text-decoration: none;
+                color: #1e86ff;
+                font-family: Poppins, sans-serif;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 21px;
+            }
         }
+    }
+}
+
+@media screen and (max-width: 860px) {
+    .sidebar {
+        width: 100%;
+        margin-bottom: 1.625rem;
     }
 }

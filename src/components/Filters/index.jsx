@@ -23,8 +23,14 @@ function Filters(props) {
     //Searching for company name
     const handleSubmitSearchValue = () => {
         if (!onSubmit) return;
-        console.log('submit', searchValue);
         onSubmit(searchValue);
+    }
+
+    const handleSubmitLocation = (e) => {
+        if (!onSubmit) return;
+        if (e.key === 'Enter') {
+            onSubmit(searchValue);
+        }
     }
 
 
@@ -37,6 +43,7 @@ function Filters(props) {
                         work_outline
                     </span>
                     <input
+                        onKeyPress={(e) => handleSubmitLocation(e)}
                         type="text"
                         placeholder="Title, companies, expertise or benefits"
                         value={searchValue}

@@ -76,8 +76,6 @@ function Main(props) {
                     <div className="main-description-company">
                         <div>
                             <span>{job.name}</span>
-                        </div>
-                        <div>
                             <button>Full time</button>
                         </div>
                     </div>

@@ -17,3 +17,9 @@ header {
         font-weight: normal;
     }
 }
+
+@media screen and (max-width: 860px) {
+    header {
+        width: 90%;
+    }
+}
