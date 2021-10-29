@@ -20,9 +20,6 @@ Pagination.defaultProps = {
 function Pagination(props) {
     const { page, page_count, job, onPageChange } = props;
 
-    console.log('current page', page);
-    console.log('page_count', page_count && page_count);
-
     const handlePageChange = (newPage) => {
         if (!onPageChange) return;
         onPageChange(newPage);

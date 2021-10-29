@@ -12,9 +12,11 @@ header {
     & > span:nth-child(1) {
         font-weight: bold;
         margin-right: 0.3rem;
+        cursor: pointer;
     }
     & > span:nth-child(2) {
         font-weight: normal;
+        cursor: pointer;
     }
 }
 

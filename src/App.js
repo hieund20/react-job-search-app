@@ -112,10 +112,19 @@ function App() {
     }
   }
 
+  const handleResetPage = () => {
+    setLoading(true);
+    setFilters({
+      page: 1
+    })
+  }
+
 
   return (
     <div className="app">
-      <Header />
+      <Header
+        onPageChange={handleResetPage}
+      />
       <Filters
         onSubmit={handleCompanySearch}
       />

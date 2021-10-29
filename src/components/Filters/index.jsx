@@ -24,12 +24,14 @@ function Filters(props) {
     const handleSubmitSearchValue = () => {
         if (!onSubmit) return;
         onSubmit(searchValue);
+        setSearchValue('');
     }
 
     const handleSubmitLocation = (e) => {
         if (!onSubmit) return;
         if (e.key === 'Enter') {
             onSubmit(searchValue);
+            setSearchValue('');
         }
     }
 
