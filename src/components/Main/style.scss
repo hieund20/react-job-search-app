@@ -237,10 +237,11 @@
     .main {
         width: 100%;
         &-job {
-            height: 10rem;
+            height: 11rem;
             align-items: unset;
             padding-top: 0.75rem;
             padding-bottom: 0.875rem;
+            padding-right: 0.75rem;
             &-infor {
                 width: 70%;
                 &-top {
