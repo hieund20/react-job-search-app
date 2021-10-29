@@ -25,7 +25,6 @@ function Pagination(props) {
 
     const handlePageChange = (newPage) => {
         if (!onPageChange) return;
-        // console.log('new page', newPage);
         onPageChange(newPage);
     }
 
@@ -77,13 +76,15 @@ function Pagination(props) {
                         </span>
                     </div>
                     {
-                        page_count > 999 &&
-                        <button className="pagination-container-page large">
-                            {page_count}
+                        page_count >= 100 &&
+                        <button
+                            className="pagination-container-page"
+                            onClick={() => handlePageChange(99)}>
+                            99
                         </button>
                     }
                     {
-                        page_count <= 999 &&
+                        page_count < 100 &&
                         <button
                             className="pagination-container-page"
                             onClick={() => handlePageChange(page_count)}
