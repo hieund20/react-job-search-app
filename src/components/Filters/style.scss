@@ -54,6 +54,11 @@
             border: 1px solid #b9bdcf;
         }
     }
+    &-container {
+        &-small {
+            visibility: hidden;
+        }
+    }
     & button {
         border: none;
         width: 14%;
@@ -86,6 +91,14 @@
         width: 90%;
         & input {
             width: 90%;
+        }
+        &-container {
+            &-small {
+                visibility: visible;
+            }
+            &-large {
+                visibility: hidden;
+            }
         }
         & span {
             left: 9%;

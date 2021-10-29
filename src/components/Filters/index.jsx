@@ -43,9 +43,17 @@ function Filters(props) {
                         work_outline
                     </span>
                     <input
+                        className="search-container-large"
                         onKeyPress={(e) => handleSubmitLocation(e)}
                         type="text"
                         placeholder="Title, companies, expertise or benefits"
+                        value={searchValue}
+                        onChange={handleSearchValueChange} />
+                    <input
+                        className="search-container-small"
+                        onKeyPress={(e) => handleSubmitLocation(e)}
+                        type="text"
+                        placeholder="Title, companies, experti..."
                         value={searchValue}
                         onChange={handleSearchValueChange} />
                     <button onClick={() => handleSubmitSearchValue()}>
