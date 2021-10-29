@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import _, { isBuffer } from 'lodash';
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { categoryData, levelData } from '../../data/data';
 
