@@ -45,6 +45,22 @@
                 color: #666666;
             }
         }
+        &-page {
+            &.active {
+                background: #1e86ff;
+                border: 1px solid #1e86ff;
+                box-sizing: border-box;
+                border-radius: 4px;
+                color: #ffffff;
+                &:hover {
+                    background: #1e86ff;
+                    border: 1px solid #1e86ff;
+                    box-sizing: border-box;
+                    border-radius: 4px;
+                    color: #ffffff;
+                }
+            }
+        }
         & > button:nth-child(1) {
             margin-right: 0.75rem;
             display: flex;

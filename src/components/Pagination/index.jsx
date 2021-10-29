@@ -43,14 +43,14 @@ function Pagination(props) {
                         </span>
                     </button>
                     <button
-                        className="pagination-container-page"
+                        className={`pagination-container-page ${page === 1 && 'active'}`}
                         onClick={() => handlePageChange(1)}>
                         1
                     </button>
                     {
                         page_count && page_count === 3 &&
                         <button
-                            className="pagination-container-page"
+                            className={`pagination-container-page ${page === 2 && 'active'}`}
                             onClick={() => handlePageChange(2)}>
                             2
                         </button>
@@ -59,12 +59,12 @@ function Pagination(props) {
                         page_count && page_count > 3 &&
                         <div className="to-inline">
                             <button
-                                className="pagination-container-page"
+                                className={`pagination-container-page ${page === 2 && 'active'}`}
                                 onClick={() => handlePageChange(2)}>
                                 2
                             </button>
                             <button
-                                className="pagination-container-page"
+                                className={`pagination-container-page ${page === 3 && 'active'}`}
                                 onClick={() => handlePageChange(3)}>
                                 3
                             </button>
