@@ -1,5 +1,4 @@
 import React from 'react';
-// import ReactDOM from 'react-dom';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import './style.scss';
@@ -20,10 +19,6 @@ Main.defaultProps = {
 function Main(props) {
     const { jobList, job, onChosenJob } = props;
 
-    console.log(1);
-    console.log('final', jobList.results);
-    console.log(2);
-
     const handleJobClick = (job) => {
         if (!onChosenJob) return;
         onChosenJob(job);
@@ -42,6 +37,10 @@ function Main(props) {
                             {
                                 job.company.image &&
                                 <img src={job.company.image} alt="" />
+                            }
+                            {
+                                !job.company.image &&
+                                <img src="../../images/not_found.PNG" alt="" />
                             }
                         </div>
                         <div className="main-job-infor">
