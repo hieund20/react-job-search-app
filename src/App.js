@@ -35,7 +35,7 @@ function App() {
         setTimeout(() => {
           setJobList(res.data);
           setLoading(false);
-        }, 3000)
+        }, 4000)
       })
       .catch((err) => {
         console.log(err);

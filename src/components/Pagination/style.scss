@@ -37,6 +37,13 @@
                 border-radius: 4px;
                 color: #ffffff;
             }
+            &:disabled,
+            &[disabled] {
+                border: 1px solid #999999;
+                background-color: #cccccc;
+                cursor: default;
+                color: #666666;
+            }
         }
         & > button:nth-child(1) {
             margin-right: 0.75rem;

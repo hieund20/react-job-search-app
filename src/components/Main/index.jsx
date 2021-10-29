@@ -3,6 +3,7 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import './style.scss';
 import moment from 'moment';
+import not_found_image from '../../images/not_found.PNG';
 
 Main.propTypes = {
     jobList: PropTypes.object,
@@ -39,8 +40,8 @@ function Main(props) {
                                 <img src={job.company.image} alt="" />
                             }
                             {
-                                !job.company.image &&
-                                <img src="../../images/not_found.PNG" alt="" />
+                                job.company.image === undefined &&
+                                <img src={not_found_image} alt="" />
                             }
                         </div>
                         <div className="main-job-infor">
@@ -55,7 +56,7 @@ function Main(props) {
                                         <span className="material-icons">
                                             public
                                         </span>
-                                        <span>{job.locations[0].name}</span>
+                                        <span>{job.locations[0] && job.locations[0].name}</span>
                                     </div>
                                     <div>
                                         <span className="material-icons">
@@ -86,7 +87,14 @@ function Main(props) {
                     </div>
                     <div className="main-description-block">
                         <div>
-                            <img src={job.company.image} alt="" />
+                            {
+                                job.company.image &&
+                                <img src={job.company.image} alt="" />
+                            }
+                            {
+                                job.company.image === undefined &&
+                                <img src={not_found_image} alt="" />
+                            }
                         </div>
                         <div>
                             <span>{job.company.name}</span>

@@ -126,7 +126,7 @@ function SideBar(props) {
                         <a
                             href={job.company.landing_page}
                             target="_blank" rel="noreferrer">
-                            {job.company.landing_page}
+                            {`${job.company.name} landing page`}
                         </a>
                     </div>
                 </div>
