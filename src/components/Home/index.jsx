@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import './style.scss';
 import { categoryData, levelData } from '../../data/data';
@@ -33,15 +33,34 @@ function Home(props) {
 
     const [companyValue, setCompanyValue] = useState('');
     const [locationValue, setLocationValue] = useState('');
+    const typingTimeoutCompanyRef = useRef(null);
+    const typingTimeoutLocationRef = useRef(null);
 
 
-    //Searching company name
+    //Searching company name - Search debounce
     const handleSearchCompany = (e) => {
         const value = e.target.value;
         setCompanyValue(value);
-        if (value === '') {
-            onCompanySubmit('');
+
+        if (!onCompanySubmit) return;
+        //Clear previous Timeout TO set new Timeout
+        //SET - 100 -> CLEAR, SET - 1000 -> SUBMIT
+        //SET - 1000 -> SUBMIT
+        if (typingTimeoutCompanyRef.current) {
+            clearTimeout(typingTimeoutCompanyRef.current);
         }
+        //This will wait for user input value, if stop input enough 1s
+        //this useRef will be run
+        typingTimeoutCompanyRef.current = setTimeout(() => {
+            if (value === '') {
+                onCompanySubmit('');
+                return;
+            }
+            const formValues = {
+                searchTerm: value
+            };
+            onCompanySubmit(formValues.searchTerm);
+        }, 1000);
     }
 
     const handleSubmitCompany = (e) => {
@@ -56,13 +75,26 @@ function Home(props) {
         onCompanySubmit(companyValue);
     }
 
-    //Searching location
+    //Searching location - Search debounce
     const handleSearchLocation = (e) => {
         const value = e.target.value;
         setLocationValue(value);
-        if (value === '') {
-            onLocationSubmit('');
+
+        if (!onLocationSubmit) return;
+
+        if (typingTimeoutLocationRef.current) {
+            clearTimeout(typingTimeoutLocationRef.current);
         }
+        typingTimeoutLocationRef.current = setTimeout(() => {
+            if (value === '') {
+                onLocationSubmit('');
+                return;
+            }
+            const formValues = {
+                searchTerm: value
+            };
+            onLocationSubmit(formValues.searchTerm);
+        }, 1000);
     }
 
     const handleSubmitLocation = (e) => {

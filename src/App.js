@@ -123,14 +123,7 @@ function App() {
   }
 
   const handleResetPage = () => {
-    setLoading(true);
-    setFilters({
-      page: 1,
-      company: null,
-      location: null,
-      category: null,
-      level: null
-    })
+    window.location.reload();
   }
 
 
