@@ -1,6 +1,6 @@
 export const categoryData = () => {
     const category = [
-        'Accounting', 'Account Management/Customer Success',
+        'All category', 'Accounting', 'Account Management/Customer Success',
         ' Corporate', 'Customer Service Career',
         'Data Science', 'Design', 'Editor', 'Education',
         'HR', 'IT', 'Law', 'Marketing', 'Mechanic',
@@ -15,7 +15,7 @@ export const categoryData = () => {
 
 export const levelData = () => {
     const level = [
-        'Entry Level', 'Mid Level', 'Senior Level', 'Management', 'Internship'
+        'All level', 'Entry Level', 'Mid Level', 'Senior Level', 'Management', 'Internship'
     ]
     return level;
 }

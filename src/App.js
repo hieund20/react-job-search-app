@@ -1,56 +1,52 @@
 import { useEffect, useState } from 'react';
-import { getCompanyById, getJobList } from './apis/getJobList';
+import { getJobList } from './apis/getJobList';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from 'react-router-dom';
+import ReactPaginate from 'react-paginate';
 import queryString from 'query-string';
 import './App.scss';
-import Filters from './components/Filters';
+
 import Header from './components/Header';
-import Main from './components/Main';
-import Pagination from './components/Pagination';
-import SideBar from './components/SideBar';
 import Loading from './components/Loading';
+import Home from './components/Home';
+import JobDescription from './components/JobDescription';
+
 
 function App() {
   const [jobList, setJobList] = useState({});
-  const [job, setJob] = useState({});
   const [filters, setFilters] = useState({
-    page: 1
+    page: 1,
+    company: null,
+    location: null,
+    category: null,
+    level: null
   });
   const [loading, setLoading] = useState(true);
 
-  //first loading data
+  //loading data
   useEffect(() => {
-    const paramsString = queryString.stringify(filters);
+    const paramsString = queryString.stringify(filters, {
+      skipNull: true
+    });
     getJobList(paramsString)
       .then((res) => {
-        res.data.results && res.data.results.map((job) => (
-          getCompanyById(job.company.id)
-            .then((res) => {
-              job.company = {
-                ...job.company,
-                image: res.data.refs && res.data.refs.logo_image,
-                landing_page: res.data.refs && res.data.refs.landing_page
-              }
-            })
-        ))
         setTimeout(() => {
           setJobList(res.data);
           setLoading(false);
-        }, 4000)
+        }, 3000)
       })
       .catch((err) => {
         console.log(err);
       })
   }, [filters])
 
-  const handleChosenJob = (job) => {
-    setJob(job);
-  }
 
-  const handleBackToMain = () => {
-    setJob(null);
-  }
-
-  const handlePageChange = (newPage) => {
+  const handlePageChange = (data) => {
+    console.log('page', data.selected + 1);
+    let newPage = data.selected + 1;
     setLoading(true);
     setFilters({
       ...filters,
@@ -58,13 +54,12 @@ function App() {
     })
   }
 
-  const handleCompanySearch = (company) => {
+  const handleSubmitCompany = (company) => {
     setLoading(true);
     if (company === '') {
-      setFilters((prevData) => {
-        const newData = { ...prevData }
-        delete newData['company']
-        return newData;
+      setFilters({
+        ...filters,
+        company: null
       })
     }
     else {
@@ -78,29 +73,44 @@ function App() {
 
   const handleChooseCategory = (category) => {
     setLoading(true);
-    setFilters({
-      ...filters,
-      category: category,
-      page: 1
-    })
+    if (category === 'All category') {
+      setFilters({
+        ...filters,
+        category: null,
+      })
+    }
+    else {
+      setFilters({
+        ...filters,
+        category: category,
+        page: 1
+      })
+    }
   }
 
   const handleChooseLevel = (level) => {
     setLoading(true);
-    setFilters({
-      ...filters,
-      level: level,
-      page: 1
-    })
+    if (level === 'All level') {
+      setFilters({
+        ...filters,
+        level: null,
+      })
+    }
+    else {
+      setFilters({
+        ...filters,
+        level: level,
+        page: 1
+      })
+    }
   }
 
   const handleSubmitLocation = (location) => {
     setLoading(true);
     if (location === '') {
-      setFilters((prevData) => {
-        const newData = { ...prevData }
-        delete newData['location']
-        return newData;
+      setFilters({
+        ...filters,
+        location: null,
       })
     }
     else {
@@ -125,29 +135,46 @@ function App() {
       <Header
         onPageChange={handleResetPage}
       />
-      <Filters
-        onSubmit={handleCompanySearch}
-      />
-      <div className="app-flex">
-        <SideBar
-          job={job}
-          onChooseCategory={handleChooseCategory}
-          onChooseLevel={handleChooseLevel}
-          onSubmit={handleSubmitLocation}
-          onBack={handleBackToMain}
-        />
-        <Main
-          jobList={jobList}
-          job={job}
-          onChosenJob={handleChosenJob}
-        />
-      </div>
-      <Pagination
-        page={jobList.page}
-        page_count={jobList.page_count}
-        job={job}
-        onPageChange={handlePageChange}
-      />
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Home
+              jobList={jobList}
+              onCompanySubmit={handleSubmitCompany}
+              onLocationSubmit={handleSubmitLocation}
+              onChooseLevel={handleChooseLevel}
+              onChooseCategory={handleChooseCategory}
+            />
+            <div className="app-pagination-container">
+              <ReactPaginate
+                previousLabel={
+                  <span className="material-icons">
+                    chevron_left
+                  </span>}
+                nextLabel={
+                  <span className="material-icons">
+                    chevron_right
+                  </span>
+                }
+                breakLabel={
+                  <span class="material-icons">
+                    more_horiz
+                  </span>
+                }
+                breakClassName="break-me"
+                pageCount={jobList.page_count > 99 ? 99 : jobList.page_count}
+                marginPagesDisplayed={1}
+                pageRangeDisplayed={2}
+                onPageChange={handlePageChange}
+                containerClassName="app-pagination"
+                activeClassName="active"
+              />
+            </div>
+          </Route>
+          <Route
+            path='/job/:jobId' component={JobDescription} />
+        </Switch>
+      </Router>
       <Loading
         loading={loading}
       />
